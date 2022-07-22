@@ -1,6 +1,7 @@
 package skyblock.skyblock;
 
-import org.bukkit.Bukkit;
+import java.util.HashMap;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -12,14 +13,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.PluginManager;
+
 import skyblock.utils.Head;
 import skyblock.utils.MinionConstructor;
-
-import java.util.HashMap;
 
 public class Minion implements Listener, CommandExecutor {
 
@@ -43,8 +42,18 @@ public class Minion implements Listener, CommandExecutor {
 
     @EventHandler
     public void onSetMinion (BlockPlaceEvent e) {
-        if (e.getBlock().getType().toString() != "PLAYER_HEAD") return;
+        if (e.getBlock().getType() != Material.PLAYER_HEAD) return;
+
         Player player = e.getPlayer();
+
+        PlayerInventory inventory = player.getInventory();
+        
+        if(player.getItemInUse() == inventory.getItemInMainHand()) {
+            inventory.setItemInMainHand(null);
+        }else {
+            inventory.setItemInOffHand(null);
+        }
+        
         MinionConstructor minion = new MinionConstructor("§6" + player.getName() + "'s Minion", e.getBlock().getLocation(), player);
         minions.put(minion.getLocation(), minion);
         e.setCancelled(true);

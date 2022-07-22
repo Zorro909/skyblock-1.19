@@ -33,7 +33,7 @@ public class MinionConstructor implements Listener {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
 
         this.name = name;
-        loc = new org.bukkit.Location(loc.getWorld(), loc.getX() + 0.5, loc.getY(), loc.getZ() + 0.5);
+        loc = new org.bukkit.Location(loc.getWorld(), loc.getBlockX() + 0.5, loc.getBlockY(), loc.getBlockZ() + 0.5);
         this.loc = loc;
         this.p = p;
 

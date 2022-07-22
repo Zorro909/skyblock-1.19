@@ -19,7 +19,6 @@
     <url>matev3.de</url>
 
     <build>
-        <directory>/root/Dev/plugins</directory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
